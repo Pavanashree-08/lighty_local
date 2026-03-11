@@ -57,7 +57,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 @Test
-class TopologyPluginsTest {
+public class TopologyPluginsTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(TopologyPluginsTest.class);
     public static final long SHUTDOWN_TIMEOUT_MILLIS = 60_000;
@@ -76,7 +76,7 @@ class TopologyPluginsTest {
     }
 
     @BeforeClass
-    void beforeClass()
+    public void beforeClass()
             throws ConfigurationException, ExecutionException, InterruptedException, TimeoutException {
         MockitoAnnotations.initMocks(this);
 
@@ -89,7 +89,7 @@ class TopologyPluginsTest {
     }
 
     @AfterClass
-    void afterClass() {
+    public void afterClass() {
         if (this.netconfPlugin != null) {
             this.netconfPlugin.shutdown(SHUTDOWN_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
         }
@@ -102,7 +102,7 @@ class TopologyPluginsTest {
     }
 
     @Test
-    void testMountDevice() throws Exception {
+    public void testMountDevice() throws Exception {
         final NodeId nodeId = new NodeId("device1");
         final Credentials loginPassword = new LoginPwUnencryptedBuilder().setLoginPasswordUnencrypted(
                 new LoginPasswordUnencryptedBuilder()

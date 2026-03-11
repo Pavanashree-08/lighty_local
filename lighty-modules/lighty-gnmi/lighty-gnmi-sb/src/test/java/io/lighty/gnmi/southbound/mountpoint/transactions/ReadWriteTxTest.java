@@ -22,7 +22,7 @@ import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.opendaylight.yangtools.yang.data.spi.node.ImmutableNodes;
 
-class ReadWriteTxTest {
+public class ReadWriteTxTest {
     private ReadWriteTx readWriteTx;
     @Mock
     private ReadOnlyTx readOnlyTx;
@@ -33,7 +33,7 @@ class ReadWriteTxTest {
     private LogicalDatastoreType logicalDatastoreType;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         yiid = YangInstanceIdentifier.builder()
                 .node(QName.create("test-namespace", "2021-05-03", "test-node"))
@@ -47,37 +47,37 @@ class ReadWriteTxTest {
     }
 
     @Test
-    void mergeTest() {
+    public void mergeTest() {
         readWriteTx.merge(logicalDatastoreType, yiid, node);
         verify(writeOnlyTx, times(1)).merge(eq(logicalDatastoreType), eq(yiid), eq(node));
     }
 
     @Test
-    void readTest() {
+    public void readTest() {
         readWriteTx.read(logicalDatastoreType, yiid);
         verify(readOnlyTx, times(1)).read(eq(logicalDatastoreType), eq(yiid));
     }
 
     @Test
-    void deleteTest() {
+    public void deleteTest() {
         readWriteTx.delete(logicalDatastoreType, yiid);
         verify(writeOnlyTx, times(1)).delete(eq(logicalDatastoreType), eq(yiid));
     }
 
     @Test
-    void cancelTest() {
+    public void cancelTest() {
         readWriteTx.cancel();
         verify(writeOnlyTx, times(1)).cancel();
     }
 
     @Test
-    void existsTest() {
+    public void existsTest() {
         readWriteTx.exists(logicalDatastoreType, yiid);
         verify(readOnlyTx, times(1)).exists(eq(logicalDatastoreType), eq(yiid));
     }
 
     @Test
-    void combinedTest() {
+    public void combinedTest() {
         readWriteTx.merge(logicalDatastoreType, yiid, node);
         readWriteTx.exists(logicalDatastoreType, yiid);
         readWriteTx.delete(logicalDatastoreType, yiid);

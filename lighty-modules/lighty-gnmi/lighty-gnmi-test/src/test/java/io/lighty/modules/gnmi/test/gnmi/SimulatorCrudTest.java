@@ -36,7 +36,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class SimulatorCrudTest {
+public class SimulatorCrudTest {
     private static final Logger LOG = LoggerFactory.getLogger(SimulatorCrudTest.class);
 
     private static final int TARGET_PORT = 10161;
@@ -57,7 +57,7 @@ class SimulatorCrudTest {
 
 
     @BeforeEach
-    void setUp() throws Exception {
+    public void setUp() throws Exception {
         GnmiSimulatorConfiguration simulatorConfiguration = GnmiSimulatorConfUtils
                 .loadGnmiSimulatorConfiguration(this.getClass().getResourceAsStream(SIMULATOR_CONFIG));
         simulatorConfiguration.setTargetAddress(TARGET_HOST);
@@ -76,13 +76,13 @@ class SimulatorCrudTest {
     }
 
     @AfterEach
-    void after() throws Exception {
+    public void after() throws Exception {
         sessionProvider.close();
         target.stop();
     }
 
     @Test
-    void getDataWithAugmentationTest() throws ExecutionException, InterruptedException, JSONException {
+    public void getDataWithAugmentationTest() throws ExecutionException, InterruptedException, JSONException {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName(OPENCONFIG_INTERFACES)
@@ -111,7 +111,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void crudSimpleValueTest() throws ExecutionException, InterruptedException, IOException, JSONException {
+    public void crudSimpleValueTest() throws ExecutionException, InterruptedException, IOException, JSONException {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName(OPENCONFIG_INTERFACES)
@@ -205,7 +205,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void setContainerInsideList() throws Exception {
+    public void setContainerInsideList() throws Exception {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName(OPENCONFIG_INTERFACES)
@@ -231,7 +231,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void setAugmentedTestInterfaceConfigTest() throws Exception {
+    public void setAugmentedTestInterfaceConfigTest() throws Exception {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName("gnmi-test-model:test-data")
@@ -260,7 +260,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void setContainerWithMultipleListKeyInPathTest() throws Exception {
+    public void setContainerWithMultipleListKeyInPathTest() throws Exception {
         final var testDataPath = Gnmi.Path.newBuilder()
             .addElem(Gnmi.PathElem.newBuilder()
                 .setName("gnmi-test-model:test-data")
@@ -321,7 +321,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void setMultipleKeyListAsLastElementInPathTest() throws Exception {
+    public void setMultipleKeyListAsLastElementInPathTest() throws Exception {
         final var multipleKeyPath = Gnmi.Path.newBuilder()
             .addElem(Gnmi.PathElem.newBuilder()
                 .setName("gnmi-test-model:test-data")
@@ -354,7 +354,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void crudComplexValueTest() throws ExecutionException, InterruptedException, IOException, JSONException {
+    public void crudComplexValueTest() throws ExecutionException, InterruptedException, IOException, JSONException {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName(OPENCONFIG_INTERFACES)
@@ -439,7 +439,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void crudSimpleAugmentedValue() throws ExecutionException, InterruptedException, IOException, JSONException {
+    public void crudSimpleAugmentedValue() throws ExecutionException, InterruptedException, IOException, JSONException {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName(OPENCONFIG_INTERFACES)
@@ -536,7 +536,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void crudComplexAugmentedValue() throws ExecutionException, InterruptedException, IOException,
+    public void crudComplexAugmentedValue() throws ExecutionException, InterruptedException, IOException,
             JSONException {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .addElem(Gnmi.PathElem.newBuilder()
@@ -636,7 +636,7 @@ class SimulatorCrudTest {
 
 
     @Test
-    void getListEntryTest() throws ExecutionException, InterruptedException, IOException, JSONException {
+    public void getListEntryTest() throws ExecutionException, InterruptedException, IOException, JSONException {
         final Gnmi.Path path = Gnmi.Path.newBuilder()
                 .addElem(Gnmi.PathElem.newBuilder()
                         .setName(OPENCONFIG_INTERFACES)
@@ -679,7 +679,7 @@ class SimulatorCrudTest {
     }
 
     @Test
-    void capabilityTest() throws ExecutionException, InterruptedException {
+    public void capabilityTest() throws ExecutionException, InterruptedException {
         final Gnmi.CapabilityRequest request = Gnmi.CapabilityRequest.newBuilder().build();
 
         LOG.info("Sending capabilities request:\n{}", request);

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier;
 import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 
-class GetResponseToNormalizedNodeCodecTest {
+public class GetResponseToNormalizedNodeCodecTest {
 
     private static GetResponseToNormalizedNodeTestCases testCases;
     private static GetResponseToNormalizedNodeCodec codec;
@@ -37,7 +37,7 @@ class GetResponseToNormalizedNodeCodecTest {
     }
 
     @Test
-    void rootElementCase() throws GnmiCodecException {
+    public void rootElementCase() throws GnmiCodecException {
         final Map.Entry<ImmutablePair<YangInstanceIdentifier, Gnmi.GetResponse>, NormalizedNode> prepared =
                 testCases.rootCase();
         final Optional<NormalizedNode> result = codec.apply(prepared.getKey().right, prepared.getKey().left);
@@ -45,7 +45,7 @@ class GetResponseToNormalizedNodeCodecTest {
     }
 
     @Test
-    void topLevelElementTest() throws GnmiCodecException {
+    public void topLevelElementTest() throws GnmiCodecException {
         // Test if json response is at the same level as identifier
         Map.Entry<ImmutablePair<YangInstanceIdentifier, Gnmi.GetResponse>, NormalizedNode> prepared =
                 testCases.topElementTestCase(false);
@@ -58,7 +58,7 @@ class GetResponseToNormalizedNodeCodecTest {
     }
 
     @Test
-    void containerTest() throws GnmiCodecException {
+    public void containerTest() throws GnmiCodecException {
         // Test container if response is at the same level as requested
         Map.Entry<ImmutablePair<YangInstanceIdentifier, Gnmi.GetResponse>, NormalizedNode> prepared =
                 testCases.containerTestCase(false);
@@ -79,7 +79,7 @@ class GetResponseToNormalizedNodeCodecTest {
     }
 
     @Test
-    void listEntryTest() throws GnmiCodecException {
+    public void listEntryTest() throws GnmiCodecException {
         // Test list entry if response is at the same level as requested
         Map.Entry<ImmutablePair<YangInstanceIdentifier, Gnmi.GetResponse>, NormalizedNode> prepared =
                 testCases.listEntryTestCase(false);
@@ -96,7 +96,7 @@ class GetResponseToNormalizedNodeCodecTest {
          deeper than requested.
      */
     @Test
-    void leafJsonTest() throws GnmiCodecException {
+    public void leafJsonTest() throws GnmiCodecException {
         // ------Number cases:----------
         // Test leaf value if response is json in format "{leaf:value}"
         Map.Entry<ImmutablePair<YangInstanceIdentifier, Gnmi.GetResponse>, NormalizedNode> prepared =
@@ -141,7 +141,7 @@ class GetResponseToNormalizedNodeCodecTest {
         Tests codec on leaf nodes. GetResponse contains specific type (e.g. for boolean bool_val is set).
      */
     @Test
-    void leafNonJsonTest() throws GnmiCodecException {
+    public void leafNonJsonTest() throws GnmiCodecException {
         // ------Number case:----------
         Map.Entry<ImmutablePair<YangInstanceIdentifier, Gnmi.GetResponse>, NormalizedNode> prepared =
                 testCases.leafNumberTestCase(false, true);

@@ -115,6 +115,7 @@ public class Main {
                 .build();
         Preconditions.checkState(startLightyModule(restconf,  modulesConfig.getModuleTimeoutSeconds()),
                 "Unable to start restconf module");
+        restconf.startServer();
 
         bgpModule = new BgpModule(controller.getServices());
         Preconditions.checkState(startLightyModule(bgpModule,  modulesConfig.getModuleTimeoutSeconds()),

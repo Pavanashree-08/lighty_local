@@ -13,12 +13,12 @@ import java.util.concurrent.TimeUnit;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-class SocketAnalyzerTest {
+public class SocketAnalyzerTest {
 
     private static final long TIMEOUT = 3;
 
     @Test
-    void socketAnalyzerAwaitPortSuccess() throws IOException, InterruptedException {
+    public void socketAnalyzerAwaitPortSuccess() throws IOException, InterruptedException {
         final int availablePort = findAvailablePort();
         try (ServerSocket ignored = new ServerSocket(availablePort)) {
             Assert.assertFalse(SocketAnalyzer.awaitPortAvailable(availablePort, TIMEOUT, TimeUnit.SECONDS));

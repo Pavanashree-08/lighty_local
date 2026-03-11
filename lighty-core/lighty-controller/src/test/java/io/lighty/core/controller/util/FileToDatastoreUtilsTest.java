@@ -39,7 +39,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-class FileToDatastoreUtilsTest {
+public class FileToDatastoreUtilsTest {
     private static final String INITIAL_CONTAINER_PATH = "/data/container-value-1.json";
     private static final String CASE_CONTAINER_PATH = "/data/case-container-value.json";
     private static final String OVERRIDE_CONTAINER_PATH = "/data/container-value-2.xml";
@@ -74,7 +74,7 @@ class FileToDatastoreUtilsTest {
     private DataBroker dataBroker;
 
     @BeforeClass
-    void startUp() throws Exception {
+    public void startUp() throws Exception {
         lightyController = new LightyControllerBuilder()
                 .from(ControllerConfigUtils.getDefaultSingleNodeConfiguration(
                         Set.of(YangModuleInfoImpl.getInstance())))
@@ -84,12 +84,12 @@ class FileToDatastoreUtilsTest {
     }
 
     @AfterClass
-    void tearDown() {
+    public void tearDown() {
         assertTrue(lightyController.shutdown(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS));
     }
 
     @Test
-    void testTopLevelNode() throws Exception {
+    public void testTopLevelNode() throws Exception {
         // Import inner-case and test choice node
         importFile(CASE_CONTAINER_PATH, INNER_CASE_YIID, ImportFileFormat.JSON);
         ChoiceContainer choiceContainer = readDataFromDatastore(CHOICE_CONTAINER_ID);
@@ -121,7 +121,7 @@ class FileToDatastoreUtilsTest {
     }
 
     @Test
-    void testMultipleTopElement() throws Exception {
+    public void testMultipleTopElement() throws Exception {
         // Import multiple top element in JSON file, Expected value 5, ID1 value 1, ID2 value 2
         importFile(MULTIPLE_TOP_JSON_PATH, ROOT_YII, ImportFileFormat.JSON);
         TopLevelContainer topLevelContainer = readDataFromDatastore(TOP_LEVEL_CONTAINER_ID);

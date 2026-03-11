@@ -83,7 +83,7 @@ public final class AAALightyShiroProvider {
         if (datastoreConfig != null && datastoreConfig.getStore().equals(DatastoreConfig.Store.H2DataStore)) {
             final IdmLightConfig config = new IdmLightConfigBuilder()
                     .dbDirectory(aaaConfiguration.getDbPath())
-                    .dbUser(aaaConfiguration.getDbUsername())
+                    .dbUser(aaaConfiguration.getUsername())
                     .dbPwd(aaaConfiguration.getDbPassword()).build();
             final PasswordServiceConfig passwordServiceConfig = new PasswordServiceConfigBuilder().setAlgorithm(
                     "SHA-512").setIterations(20000).build();
@@ -101,23 +101,18 @@ public final class AAALightyShiroProvider {
             this.credentialAuth = idmLightProxy;
             this.claimCache = idmLightProxy;
         }
-        try {
-            final var storeBuilder = new StoreBuilder(iidmStore);
-            final var created = storeBuilder.initDomainAndRolesWithoutUsers(IIDMStore.DEFAULT_DOMAIN);
-            if (created == null) {
-                LOG.debug("Default AAA domain has been already there, nothing to create");
-            } else {
-                LOG.debug("Default AAA domain has been created");
-            }
-            storeBuilder.createUser(IIDMStore.DEFAULT_DOMAIN, aaaConfiguration.getUsername(),
-                aaaConfiguration.getPassword(), true);
-        } catch (final IDMStoreException e) {
-            LOG.error("Failed to pre-seed data in store", e);
-        }
-        // Because the database is no longer empty, BasicRealmAuthProvider will
-        // see the existing domain/users and gracefully skip its hardcoded admin injection
         this.realmAuthProvider = buildTokenAuthenticators((PasswordCredentialAuth) this.credentialAuth, iidmStore);
+        try {
+            final StoreBuilder storeBuilder = new StoreBuilder(iidmStore);
+            final String domain = storeBuilder.initDomainAndRolesWithoutUsers(IIDMStore.DEFAULT_DOMAIN);
+            if (domain != null) {
+                // If is not exist. If domain already exist on path, will be used instead
+                storeBuilder.createUser(domain, aaaConfiguration.getUsername(), aaaConfiguration.getPassword(), true);
+            }
 
+        } catch (final IDMStoreException e) {
+            LOG.error("Failed to initialize data in store", e);
+        }
         initAAAonServer(server);
     }
 

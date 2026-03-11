@@ -15,10 +15,10 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.aaa.app.config.rev170619.sh
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-class ShiroConfigurationConfigTest {
+public class ShiroConfigurationConfigTest {
 
     @Test
-    void getDefaultTest() {
+    public void getDefaultTest() {
         ShiroConfiguration configuration = ShiroConfigurationConfig.getDefault();
 
         @Nullable List<Main> mains = configuration.getMain();

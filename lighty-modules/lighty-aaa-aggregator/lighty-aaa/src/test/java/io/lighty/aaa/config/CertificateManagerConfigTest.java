@@ -30,7 +30,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-class CertificateManagerConfigTest {
+public class CertificateManagerConfigTest {
 
     private static final String BUNDLE_NAME = "opendaylight";
 
@@ -44,7 +44,7 @@ class CertificateManagerConfigTest {
     RpcProviderService rpcProviderService;
 
     @BeforeClass
-    void init() {
+    public void init() {
         MockitoAnnotations.initMocks(this);
         DataObjectIdentifier<AaaEncryptServiceConfig> build = DataObjectIdentifier
             .builder(AaaEncryptServiceConfig.class).build();
@@ -65,7 +65,7 @@ class CertificateManagerConfigTest {
     }
 
     @Test
-    void getDefaultTest() {
+    public void getDefaultTest() {
         ICertificateManager certificateManager = CertificateManagerConfig.getDefault(bindingDataBroker,
                 rpcProviderService);
 

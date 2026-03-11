@@ -19,18 +19,18 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-class LightyControllerDataBrokerTest extends LightyControllerTestBase {
+public class LightyControllerDataBrokerTest extends LightyControllerTestBase {
     private Registration registration;
 
     @AfterMethod
-    void afterMethod() {
+    public void afterMethod() {
         if (registration != null) {
             registration.close();
         }
     }
 
     @Test
-    void controllerDataBrokerTest() throws Exception {
+    public void controllerDataBrokerTest() throws Exception {
         final CountDownLatch countDownLatch = new CountDownLatch(2);
         final LightyController lightyController = getLightyController();
         final org.opendaylight.mdsal.binding.api.DataBroker bindingDataBroker = lightyController.getServices()

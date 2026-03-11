@@ -12,10 +12,10 @@ import java.util.Collections;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-class LightyControllerTest extends LightyControllerTestBase {
+public class LightyControllerTest extends LightyControllerTestBase {
 
     @Test(groups = "boot")
-    void controllerSimpleTest() {
+    public void controllerSimpleTest() {
         final LightyController lightyController = getLightyController();
         Assert.assertNotNull(lightyController);
         Assert.assertNotNull(lightyController.getServices());

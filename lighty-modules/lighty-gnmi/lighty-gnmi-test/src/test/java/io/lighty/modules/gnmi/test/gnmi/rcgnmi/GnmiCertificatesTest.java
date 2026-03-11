@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class GnmiCertificatesTest extends GnmiITBase {
+public class GnmiCertificatesTest extends GnmiITBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(GnmiCertificatesTest.class);
     private static final TestCertificates TEST_CERTIFICATES = new TestCertificates();
@@ -77,7 +77,7 @@ class GnmiCertificatesTest extends GnmiITBase {
     }
 
     @Test
-    void testCertificateRegistration() throws IOException, InterruptedException, JSONException {
+    public void testCertificateRegistration() throws IOException, InterruptedException, JSONException {
         // Register keystore
         final String id = "test-registration";
         final String certificatesRequestBody = getCertificatesRequestBody(id, TEST_CERTIFICATES.getCaCert(),
@@ -109,7 +109,7 @@ class GnmiCertificatesTest extends GnmiITBase {
     }
 
     @Test
-    void testWrongCertificateRegistration() throws IOException, InterruptedException {
+    public void testWrongCertificateRegistration() throws IOException, InterruptedException {
         // Register keystore
         final String id = "test-wrong-registration";
         final String certificatesRequestBody = getRemoveCertificateBody(id);
@@ -122,7 +122,7 @@ class GnmiCertificatesTest extends GnmiITBase {
     }
 
     @Test
-    void connectDeviceWithCertificates() throws IOException, InterruptedException {
+    public void connectDeviceWithCertificates() throws IOException, InterruptedException {
         // Register keystore
         final String keystoreId = "test-certificate";
         final String certificatesRequestBody = getCertificatesRequestBody(keystoreId, TEST_CERTIFICATES.getCaCert(),
@@ -157,7 +157,7 @@ class GnmiCertificatesTest extends GnmiITBase {
     }
 
     @Test
-    void connectDeviceWithEncryptedCertificate() throws IOException, InterruptedException {
+    public void connectDeviceWithEncryptedCertificate() throws IOException, InterruptedException {
         // Register keystore
         final String keystoreId = "test-encrypted-certificate";
         final String certificatesRequestBody = getCertificatesRequestBody(keystoreId, TEST_CERTIFICATES.getCaCert(),
@@ -193,7 +193,7 @@ class GnmiCertificatesTest extends GnmiITBase {
     }
 
     @Test
-    void connectDeviceWithWrongCaCertificatesAndReconnect() throws IOException, InterruptedException {
+    public void connectDeviceWithWrongCaCertificatesAndReconnect() throws IOException, InterruptedException {
         // Register keystore
         final String keystoreId = "test-wrong-ca";
         final String certificatesRequestBody = getCertificatesRequestBody(keystoreId,
@@ -265,7 +265,7 @@ class GnmiCertificatesTest extends GnmiITBase {
     }
 
     @Test
-    void connectDeviceWithoutPassphrase() throws IOException, InterruptedException {
+    public void connectDeviceWithoutPassphrase() throws IOException, InterruptedException {
         // Register keystore
         final String keystoreId = "test-without-passphrase";
         final String certificatesRequestBody = getCertificatesRequestBody(keystoreId, TEST_CERTIFICATES.getCaCert(),

@@ -26,7 +26,7 @@ import org.opendaylight.yangtools.yang.data.api.YangInstanceIdentifier.NodeIdent
 import org.opendaylight.yangtools.yang.data.api.schema.ContainerNode;
 import org.opendaylight.yangtools.yang.data.api.schema.MapNode;
 
-class LightyGuiceAppTest {
+public class LightyGuiceAppTest {
 
     private static final String EXPECTED_TOPOLOGY_ID = "InitialTopology";
     private static final long TIMEOUT_SECONDS = 30;
@@ -49,7 +49,7 @@ class LightyGuiceAppTest {
     }
 
     @Test
-    void testReadFromDataBroker() throws Exception {
+    public void testReadFromDataBroker() throws Exception {
         final var identifier = DataObjectIdentifier.builder(NetworkTopology.class).build();
         final var networkTopology = service.readFromDataBroker(identifier).get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
         assertTrue(networkTopology.isPresent());
@@ -60,7 +60,7 @@ class LightyGuiceAppTest {
     }
 
     @Test
-    void testReadFromDomDataBroker() throws Exception {
+    public void testReadFromDomDataBroker() throws Exception {
         final var identifier = YangInstanceIdentifier.of(NodeIdentifier.create(NetworkTopology.QNAME));
         final var networkTopology = service.readFromDomDataBroker(identifier).get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
         assertTrue(networkTopology.isPresent());

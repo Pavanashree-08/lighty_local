@@ -25,7 +25,7 @@ import org.opendaylight.yangtools.yang.data.api.schema.NormalizedNode;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.testng.Assert;
 
-class YangInstanceNormToGnmiUpdateCodecTest {
+public class YangInstanceNormToGnmiUpdateCodecTest {
 
     private static YangInstanceNormToGnmiUpdateTestCases testCases;
     private static YangInstanceNormToGnmiUpdateCodec codec;
@@ -40,7 +40,7 @@ class YangInstanceNormToGnmiUpdateCodecTest {
     }
 
     @Test
-    void topLevelElementTest() throws Exception {
+    public void topLevelElementTest() throws Exception {
         final Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> prepared =
                 testCases.topElementTestCase();
         final Gnmi.Update result = codec.apply(prepared.getKey().left, prepared.getKey().right);
@@ -48,7 +48,7 @@ class YangInstanceNormToGnmiUpdateCodecTest {
     }
 
     @Test
-    void listEntryCase() throws Exception {
+    public void listEntryCase() throws Exception {
         final Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> prepared =
                 testCases.listEntryTestCase();
         final Gnmi.Update result = codec.apply(prepared.getKey().left, prepared.getKey().right);
@@ -56,7 +56,7 @@ class YangInstanceNormToGnmiUpdateCodecTest {
     }
 
     @Test
-    void containerCase() throws Exception {
+    public void containerCase() throws Exception {
         Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> prepared =
                 testCases.containerTestCase();
         Gnmi.Update result = codec.apply(prepared.getKey().left, prepared.getKey().right);
@@ -69,7 +69,7 @@ class YangInstanceNormToGnmiUpdateCodecTest {
     }
 
     @Test
-    void simpleValuesTest() throws Exception {
+    public void simpleValuesTest() throws Exception {
         // ------Boolean case:----------
         Map.Entry<ImmutablePair<YangInstanceIdentifier, NormalizedNode>, Gnmi.Update> prepared =
                 testCases.leafBooleanTestCase();

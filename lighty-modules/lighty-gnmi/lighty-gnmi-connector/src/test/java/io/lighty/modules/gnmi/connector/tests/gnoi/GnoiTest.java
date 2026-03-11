@@ -22,21 +22,22 @@ import io.lighty.modules.gnmi.connector.session.api.SessionManager;
 import io.lighty.modules.gnmi.connector.session.api.SessionProvider;
 import io.lighty.modules.gnmi.connector.tests.commons.TestUtils;
 import io.lighty.modules.gnmi.connector.tests.commons.TimeoutUtil;
+import io.lighty.modules.gnmi.connector.tests.gnmi.GnmiTest;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-class GnoiTest {
+public class GnoiTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GnoiTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GnmiTest.class);
     private static final InetSocketAddress DEFAULT_SERVER_ADDRESS = new InetSocketAddress(AddressUtil.LOCALHOST, 9090);
 
     private static final int GNOI_RESPONSE_FILE_CHUNKS = 2;
@@ -46,8 +47,8 @@ class GnoiTest {
     private TestGnoiServiceImpl service;
     private Server server;
 
-    @BeforeEach
-    void before() throws IOException {
+    @Before
+    public void before() throws IOException {
         service = new TestGnoiServiceImpl();
         server = ServerBuilder
                 .forPort(DEFAULT_SERVER_ADDRESS.getPort())
@@ -58,8 +59,8 @@ class GnoiTest {
         server.start();
     }
 
-    @AfterEach
-    void after() {
+    @After
+    public void after() {
         LOG.info("Shutting down server");
         server.shutdown();
         try {
@@ -73,25 +74,25 @@ class GnoiTest {
 
     @SuppressWarnings({"checkstyle:illegalCatch"})
     @Test
-    void gnoiServicesInitiatedTest() throws Exception {
+    public void gnoiServicesInitiatedTest() throws Exception {
         final SessionManager sessionManager = TestUtils.createSessionManagerWithCerts();
         try (SessionProvider session =
                      sessionManager.createSession(new SessionConfiguration(DEFAULT_SERVER_ADDRESS, true))) {
             final GnoiSession gnoiSession = session.getGnoiSession();
 
-            Assertions.assertNotNull(gnoiSession);
-            Assertions.assertNotNull(gnoiSession.getCertInvoker());
-            Assertions.assertNotNull(gnoiSession.getFileInvoker());
-            Assertions.assertNotNull(gnoiSession.getOsInvoker());
-            Assertions.assertNotNull(gnoiSession.getSystemInvoker());
+            Assert.assertNotNull(gnoiSession);
+            Assert.assertNotNull(gnoiSession.getCertInvoker());
+            Assert.assertNotNull(gnoiSession.getFileInvoker());
+            Assert.assertNotNull(gnoiSession.getOsInvoker());
+            Assert.assertNotNull(gnoiSession.getSystemInvoker());
         } catch (Exception e) {
-            Assertions.fail("Exception thrown!" + e);
+            Assert.fail("Exception thrown!" + e);
         }
     }
 
     @SuppressWarnings({"checkstyle:illegalCatch"})
     @Test
-    void gnoiFileServiceTest() throws Exception {
+    public void gnoiFileServiceTest() throws Exception {
         final SessionManager sessionManager = TestUtils.createSessionManagerWithCerts();
 
         try (SessionProvider session =
@@ -111,17 +112,15 @@ class GnoiTest {
                         ByteString receivedContents = value.getContents();
                         LOG.info("Received content: {}", receivedContents);
                         if (syncCounter.getCount() == 2) {
-                            Assertions.assertArrayEquals(GNOI_RESPONSE_FILE_FIRST_CHUNK,
-                                receivedContents.toByteArray());
+                            Assert.assertArrayEquals(GNOI_RESPONSE_FILE_FIRST_CHUNK, receivedContents.toByteArray());
                         } else if (syncCounter.getCount() == 1) {
-                            Assertions.assertArrayEquals(GNOI_RESPONSE_FILE_SECOND_CHUNK,
-                                receivedContents.toByteArray());
+                            Assert.assertArrayEquals(GNOI_RESPONSE_FILE_SECOND_CHUNK, receivedContents.toByteArray());
                         }
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
-                        Assertions.fail("Exception thrown! " + throwable);
+                        Assert.fail("Exception thrown! " + throwable);
                     }
 
                     @Override
@@ -130,9 +129,9 @@ class GnoiTest {
                     }
                 };
             fileInvoker.get(request, responseObserver);
-            Assertions.assertTrue(syncCounter.await(TimeoutUtil.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS));
+            Assert.assertTrue(syncCounter.await(TimeoutUtil.TIMEOUT_MILLIS, TimeUnit.MILLISECONDS));
         } catch (Exception e) {
-            Assertions.fail("Exception thrown!" + e);
+            Assert.fail("Exception thrown!" + e);
         }
     }
 

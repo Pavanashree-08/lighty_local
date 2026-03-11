@@ -17,13 +17,13 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class GnmiConfigUtilsTest {
+public class GnmiConfigUtilsTest {
 
     private static final String CONFIG_PATH = "src/test/resources/lightyconfigs/config.json";
     private static final String EMPTY_CONFIG_PATH = "src/test/resources/lightyconfigs/config_empty.json";
 
     @Test
-    void testConfigLoadedJson() throws IOException, ConfigurationException {
+    public void testConfigLoadedJson() throws IOException, ConfigurationException {
         final GnmiConfiguration gnmiConfiguration = GnmiConfigUtils.getGnmiConfiguration(
                 Files.newInputStream(Path.of(CONFIG_PATH)));
 
@@ -31,7 +31,7 @@ class GnmiConfigUtilsTest {
     }
 
     @Test
-    void testConfigLoadedDefaultConfig() throws IOException, ConfigurationException {
+    public void testConfigLoadedDefaultConfig() throws IOException, ConfigurationException {
         final GnmiConfiguration gnmiConfiguration = GnmiConfigUtils.getGnmiConfiguration(
                 Files.newInputStream(Path.of(EMPTY_CONFIG_PATH)));
 

@@ -12,7 +12,7 @@
     <parent>
         <groupId>io.lighty.core</groupId>
         <artifactId>lighty-parent</artifactId>
-        <version>24.0.0-SNAPSHOT</version>
+        <version>23.0.0-SNAPSHOT</version>
         <relativePath>../lighty-parent/pom.xml</relativePath>
     </parent>
 
@@ -63,8 +63,8 @@
 
         <!-- Test scoped dependencies -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

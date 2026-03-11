@@ -32,14 +32,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
-class GnmiTest {
+public class GnmiTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(GnmiTest.class);
     private static final InetSocketAddress DEFAULT_SERVER_ADDRESS = new InetSocketAddress(AddressUtil.LOCALHOST, 9090);
@@ -47,8 +47,8 @@ class GnmiTest {
     private TestGrpcServiceImpl service;
     private Server server;
 
-    @BeforeEach
-    void before() throws IOException {
+    @Before
+    public void before() throws IOException {
         service = new TestGrpcServiceImpl();
         server = ServerBuilder
                 .forPort(DEFAULT_SERVER_ADDRESS.getPort())
@@ -58,8 +58,8 @@ class GnmiTest {
         server.start();
     }
 
-    @AfterEach
-    void after() {
+    @After
+    public void after() {
         LOG.info("Shutting down server");
         server.shutdown();
         try {
@@ -72,7 +72,7 @@ class GnmiTest {
     }
 
     @Test
-    void rawGnmiTest() {
+    public void rawGnmiTest() {
         LOG.info("Creating channel to server");
         final ManagedChannel channel = ManagedChannelBuilder
                 .forAddress(DEFAULT_SERVER_ADDRESS.getAddress().getHostAddress(), DEFAULT_SERVER_ADDRESS.getPort())
@@ -98,7 +98,7 @@ class GnmiTest {
 
     @Test
     @SuppressWarnings("IllegalCatch")
-    void lightyGnmiSessionTest() throws Exception {
+    public void lightyGnmiSessionTest() throws Exception {
         final SessionManager sessionManager = TestUtils.createSessionManagerWithCerts();
         try (SessionProvider session =
                      sessionManager.createSession(new SessionConfiguration(DEFAULT_SERVER_ADDRESS, true))) {
@@ -122,7 +122,7 @@ class GnmiTest {
     }
 
     @Test
-    void sessionManagerChannelCachingTest() throws Exception {
+    public void sessionManagerChannelCachingTest() throws Exception {
         // create second server
         final TestGrpcServiceImpl service2 = new TestGrpcServiceImpl();
         final Server server2 = ServerBuilder.forPort(8081).addService(service2).build();

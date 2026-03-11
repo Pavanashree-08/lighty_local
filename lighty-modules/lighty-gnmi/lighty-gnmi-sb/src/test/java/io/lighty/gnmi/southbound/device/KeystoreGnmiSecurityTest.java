@@ -89,7 +89,7 @@ import org.opendaylight.yangtools.binding.DataObject;
 import org.opendaylight.yangtools.binding.DataObjectIdentifier;
 import org.opendaylight.yangtools.yang.common.Uint16;
 
-class KeystoreGnmiSecurityTest {
+public class KeystoreGnmiSecurityTest {
 
     private static final String KEYSTORE_PASSPHRASE_ID_1 = "KeystoreID_1";
     private static final String KEYSTORE_ID_2 = "KeystoreID_2";
@@ -112,7 +112,7 @@ class KeystoreGnmiSecurityTest {
     private GnmiSessionFactoryImpl gnmiSessionFactorySpy;
 
     @BeforeEach
-    void setup() {
+    public void setup() {
         MockitoAnnotations.initMocks(this);
         final BindingDOMDataBrokerAdapter dataBrokerMock = mock(BindingDOMDataBrokerAdapter.class);
         final WriteTransaction wtxMock = mock(WriteTransaction.class);
@@ -163,14 +163,14 @@ class KeystoreGnmiSecurityTest {
     }
 
     @AfterEach
-    void tearDown() throws Exception {
+    public void tearDown() throws Exception {
         if (connectionInitializer != null) {
             connectionInitializer.close();
         }
     }
 
     @Test
-    void testNoTls() throws Exception {
+    public void testNoTls() throws Exception {
         final Node node = createNode(TEST_NODE, PORT, getNoTlsSecurityChoice());
         deviceInitializerDevicesConnecting(node);
 
@@ -190,7 +190,7 @@ class KeystoreGnmiSecurityTest {
     }
 
     @Test
-    void testInsecure() throws Exception {
+    public void testInsecure() throws Exception {
         final Node node = createNode(TEST_NODE, PORT, getInsecureSecurityChoice());
         deviceInitializerDevicesConnecting(node);
 
@@ -209,7 +209,7 @@ class KeystoreGnmiSecurityTest {
     }
 
     @Test
-    void testCertificateWithPassphrase() throws Exception {
+    public void testCertificateWithPassphrase() throws Exception {
         final Node node = createNode(TEST_NODE, PORT, getTlsSecurityChoice(KEYSTORE_PASSPHRASE_ID_1));
         deviceInitializerDevicesConnecting(node);
 
@@ -228,7 +228,7 @@ class KeystoreGnmiSecurityTest {
     }
 
     @Test
-    void testCertificates() throws Exception {
+    public void testCertificates() throws Exception {
         final Node node = createNode(TEST_NODE, PORT, getTlsSecurityChoice(KEYSTORE_ID_2));
         deviceInitializerDevicesConnecting(node);
 
@@ -247,7 +247,7 @@ class KeystoreGnmiSecurityTest {
     }
 
     @Test
-    void testNoTlsWithBasiAuth() throws Exception {
+    public void testNoTlsWithBasiAuth() throws Exception {
         final Node node = createNode(TEST_NODE, PORT, getNoTlsSecurityChoice(), getTestCredentials());
         deviceInitializerDevicesConnecting(node);
 
@@ -271,7 +271,7 @@ class KeystoreGnmiSecurityTest {
     }
 
     @Test
-    void testInsecureWithBasiAuth() throws Exception {
+    public void testInsecureWithBasiAuth() throws Exception {
         final Node node = createNode(TEST_NODE, PORT, getInsecureSecurityChoice(), getTestCredentials());
         deviceInitializerDevicesConnecting(node);
 
@@ -295,7 +295,7 @@ class KeystoreGnmiSecurityTest {
     }
 
     @Test
-    void testCertificateWithPassphraseWithBasiAuth() throws Exception {
+    public void testCertificateWithPassphraseWithBasiAuth() throws Exception {
         final Node node
                 = createNode(TEST_NODE, PORT, getTlsSecurityChoice(KEYSTORE_PASSPHRASE_ID_1), getTestCredentials());
         deviceInitializerDevicesConnecting(node);
@@ -320,7 +320,7 @@ class KeystoreGnmiSecurityTest {
     }
 
     @Test
-    void testCertificatesWithBasiAuth() throws Exception {
+    public void testCertificatesWithBasiAuth() throws Exception {
         final Node node = createNode(TEST_NODE, PORT, getTlsSecurityChoice(KEYSTORE_ID_2), getTestCredentials());
         deviceInitializerDevicesConnecting(node);
 
@@ -346,7 +346,7 @@ class KeystoreGnmiSecurityTest {
     /*
         Tests behaviour of DevicesConnectionManager if nodes are not yet connected by DeviceSessionInitializerProvider.
      */
-    void deviceInitializerDevicesConnecting(Node node) throws Exception {
+    public void deviceInitializerDevicesConnecting(Node node) throws Exception {
         final ListenableFuture<DeviceConnection> connect = connectionInitializer.initConnection(node);
         final DeviceConnection connection = connect.get(10, TimeUnit.SECONDS);
         Assertions.assertEquals(node.getNodeId(), connection.getIdentifier());

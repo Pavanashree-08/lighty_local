@@ -19,16 +19,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.testng.annotations.Test;
 
-class AAAConfigUtilsTest {
+public class AAAConfigUtilsTest {
 
     @Test(expectedExceptions = ConfigurationException.class)
-    void testNotAllowedToCreateAAAConfigUtils() throws Exception {
+    public void testNotAllowedToCreateAAAConfigUtils() throws Exception {
         final var configStream = mock(InputStream.class);
         AAAConfigUtils.getAAAConfiguration(configStream);
     }
 
     @Test
-    void testGetAAAConfigurationEmptyConfigFile() throws Exception {
+    public void testGetAAAConfigurationEmptyConfigFile() throws Exception {
         final var configPath = Paths.get(this.getClass().getResource("/configEmpty.json").toURI());
         final var rncAaaConfiguration = AAAConfigUtils.getAAAConfiguration(Files.newInputStream(configPath));
 
@@ -42,7 +42,7 @@ class AAAConfigUtilsTest {
     }
 
     @Test
-    void testGetAAAConfigurationCustomConfigFile() throws Exception {
+    public void testGetAAAConfigurationCustomConfigFile() throws Exception {
         final var configPath = Paths.get(this.getClass().getResource("/aaaConfig.json").toURI());
         final var rncAaaConfiguration = AAAConfigUtils.getAAAConfiguration(Files.newInputStream(configPath));
 

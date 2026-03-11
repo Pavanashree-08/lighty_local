@@ -136,6 +136,8 @@ public final class Main {
             throw new ModuleStartupException("Community Restconf startup failed!");
         }
 
+        // 4. Start Lighty jetty server
+        this.restconf.startServer();
     }
 
     private void closeLightyModule(final LightyModule module) {

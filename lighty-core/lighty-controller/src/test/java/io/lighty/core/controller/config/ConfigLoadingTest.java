@@ -26,10 +26,10 @@ import org.opendaylight.yangtools.binding.meta.YangModuleInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-class ConfigLoadingTest {
+public class ConfigLoadingTest {
 
     @Test
-    void loadControllerConfigurationNoDsContexts() throws IOException, ConfigurationException {
+    public void loadControllerConfigurationNoDsContexts() throws IOException, ConfigurationException {
         InputStream inputStream = this.getClass().getResourceAsStream("/testLightyControllerConfig-noDsContexts.json");
         final ControllerConfiguration configuration = ControllerConfigUtils.getConfiguration(inputStream);
         Assert.assertNotNull(configuration);
@@ -90,7 +90,7 @@ class ConfigLoadingTest {
     }
 
     @Test(expectedExceptions = ConfigurationException.class)
-    void loadMissingInitConfigParam() throws ConfigurationException {
+    public void loadMissingInitConfigParam() throws ConfigurationException {
         InputStream inputStream = this.getClass()
                 .getResourceAsStream("/testLightyControllerConfig-missingInitParam.json");
         final ControllerConfiguration configuration = ControllerConfigUtils.getConfiguration(inputStream);
@@ -98,7 +98,7 @@ class ConfigLoadingTest {
     }
 
     @Test(expectedExceptions = ConfigurationException.class)
-    void loadWrongInitParam() throws ConfigurationException {
+    public void loadWrongInitParam() throws ConfigurationException {
         InputStream inputStream = this.getClass()
                 .getResourceAsStream("/testLightyControllerConfig-wrongInitParam.json");
         final ControllerConfiguration configuration = ControllerConfigUtils.getConfiguration(inputStream);
@@ -106,7 +106,7 @@ class ConfigLoadingTest {
     }
 
     @Test
-    void loadOkDataInitConfig() throws ConfigurationException {
+    public void loadOkDataInitConfig() throws ConfigurationException {
         InputStream inputStream = this.getClass()
                 .getResourceAsStream("/testLightyControllerConfig-okDataInit.json");
         final ControllerConfiguration configuration = ControllerConfigUtils.getConfiguration(inputStream);
@@ -117,45 +117,45 @@ class ConfigLoadingTest {
     }
 
     @Test
-    void loadControllerConfiguration() throws IOException, ConfigurationException {
+    public void loadControllerConfiguration() throws IOException, ConfigurationException {
         InputStream inputStream = this.getClass().getResourceAsStream("/testLightyControllerConfig.json");
         final ControllerConfiguration configuration = ControllerConfigUtils.getConfiguration(inputStream);
         Assert.assertNotNull(configuration);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
-    void loadMissingConfiguration() throws ConfigurationException {
+    public void loadMissingConfiguration() throws ConfigurationException {
         InputStream inputStream = this.getClass().getResourceAsStream("/testMissingConfig.json");
         ControllerConfigUtils.getConfiguration(inputStream);
     }
 
     @Test(expectedExceptions = ConfigurationException.class)
-    void loadEmptyConfiguration() throws ConfigurationException {
+    public void loadEmptyConfiguration() throws ConfigurationException {
         InputStream inputStream = this.getClass().getResourceAsStream("/testEmptyConfig.json");
         ControllerConfigUtils.getConfiguration(inputStream);
     }
 
     @Test
-    void loadEmptyJsonConfiguration() throws ConfigurationException {
+    public void loadEmptyJsonConfiguration() throws ConfigurationException {
         InputStream inputStream = this.getClass().getResourceAsStream("/testEmptyJsonConfig.json");
         ControllerConfiguration configuration = ControllerConfigUtils.getConfiguration(inputStream);
         Assert.assertNotNull(configuration);
     }
 
     @Test(expectedExceptions = ConfigurationException.class)
-    void loadNonJsonConfiguration() throws ConfigurationException {
+    public void loadNonJsonConfiguration() throws ConfigurationException {
         InputStream inputStream = this.getClass().getResourceAsStream("/testNonJsonConfig.json");
         ControllerConfigUtils.getConfiguration(inputStream);
     }
 
     @Test(expectedExceptions = ConfigurationException.class)
-    void loadDummyConfiguration() throws ConfigurationException {
+    public void loadDummyConfiguration() throws ConfigurationException {
         InputStream inputStream = this.getClass().getResourceAsStream("/testBadConfig.json");
         ControllerConfigUtils.getConfiguration(inputStream);
     }
 
     @Test
-    void loadConfigDatastoreCtxTest() throws IOException {
+    public void loadConfigDatastoreCtxTest() throws IOException {
         DatastoreContext dataStoreContext = loadDatastoreContext(
             DatastoreConfigurationUtils.DATASTORECTX_CONFIG_ROOT_ELEMENT_NAME, LogicalDatastoreType.CONFIGURATION);
         Assert.assertNotNull(dataStoreContext);
@@ -186,7 +186,7 @@ class ConfigLoadingTest {
     }
 
     @Test
-    void loadOperationalDatastoreCtxTest() throws IOException {
+    public void loadOperationalDatastoreCtxTest() throws IOException {
         DatastoreContext dataStoreContext = loadDatastoreContext(
             DatastoreConfigurationUtils.DATASTORECTX_OPERATIONAL_ROOT_ELEMENT_NAME, LogicalDatastoreType.OPERATIONAL);
         Assert.assertNotNull(dataStoreContext);
@@ -217,7 +217,7 @@ class ConfigLoadingTest {
     }
 
     @Test
-    void loadControllerConfigurationTest() throws Exception {
+    public void loadControllerConfigurationTest() throws Exception {
         Set<String> expectedModuleNames = new HashSet<>();
         expectedModuleNames.add("network-topology");
 
@@ -235,7 +235,7 @@ class ConfigLoadingTest {
     }
 
     @Test
-    void loadConfigurationsAndCompareTest() throws Exception {
+    public void loadConfigurationsAndCompareTest() throws Exception {
         InputStream inputStream = this.getClass().getResourceAsStream("/testLightyControllerConfig-example.json");
         final ControllerConfiguration configuration = ControllerConfigUtils.getConfiguration(inputStream);
 

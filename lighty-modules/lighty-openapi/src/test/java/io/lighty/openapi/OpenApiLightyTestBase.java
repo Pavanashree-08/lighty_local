@@ -68,6 +68,7 @@ public abstract class OpenApiLightyTestBase {
                 lightyController.getServices(), null);
         LOG.info("Starting Lighty OpenApi");
         openApiModule.start().get();
+        communityRestConf.startServer();
         LOG.info("Lighty OpenApi started");
         jaxRsOpenApi = new JaxRsOpenApi(openApiModule.getjaxRsOpenApi());
     }

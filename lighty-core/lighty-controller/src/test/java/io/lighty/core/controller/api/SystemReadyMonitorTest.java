@@ -17,10 +17,10 @@ import org.opendaylight.infrautils.ready.SystemState;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-class SystemReadyMonitorTest {
+public class SystemReadyMonitorTest {
 
     @Test
-    void testSystemBootFailed() throws Exception {
+    public void testSystemBootFailed() throws Exception {
         SystemReadyListener listener1 = Mockito.mock(SystemReadyListener.class);
         SystemReadyListener listener2 = Mockito.mock(SystemReadyListener.class);
         LightySystemReadyMonitorImpl systemReadyMonitor = new LightySystemReadyMonitorImpl();
@@ -41,7 +41,7 @@ class SystemReadyMonitorTest {
     }
 
     @Test
-    void testSystemBootOK() throws Exception {
+    public void testSystemBootOK() throws Exception {
         SystemReadyListener listener1 = Mockito.mock(SystemReadyListener.class);
         SystemReadyListener listener2 = Mockito.mock(SystemReadyListener.class);
         LightySystemReadyMonitorImpl systemReadyMonitor = new LightySystemReadyMonitorImpl();

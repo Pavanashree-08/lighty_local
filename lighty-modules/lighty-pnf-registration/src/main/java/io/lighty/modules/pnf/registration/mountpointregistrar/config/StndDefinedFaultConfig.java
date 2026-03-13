@@ -18,7 +18,7 @@
 
 package io.lighty.modules.pnf.registration.mountpointregistrar.config;
 
-import io.lighty.modules.pnf.registration.common.configuration.ConfigurationFileRepresentation;
+import org.onap.ccsdk.features.sdnr.wt.common.configuration.ConfigurationFileRepresentation;
 
 public class StndDefinedFaultConfig extends MessageConfig {
 

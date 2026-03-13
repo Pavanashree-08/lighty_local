@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import io.lighty.modules.pnf.registration.common.http.BaseHTTPClient;
-import io.lighty.modules.pnf.registration.common.http.BaseHTTPResponse;
+import org.onap.ccsdk.features.sdnr.wt.common.http.BaseHTTPClient;
+import org.onap.ccsdk.features.sdnr.wt.common.http.BaseHTTPResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

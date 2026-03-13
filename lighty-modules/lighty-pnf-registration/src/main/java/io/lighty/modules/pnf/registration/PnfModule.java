@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import io.lighty.core.controller.api.AbstractLightyModule;
-import io.lighty.modules.pnf.registration.common.configuration.ConfigurationFileRepresentation;
-import io.lighty.modules.pnf.registration.common.configuration.filechange.IConfigChangedListener;
+import org.onap.ccsdk.features.sdnr.wt.common.configuration.ConfigurationFileRepresentation;
+import org.onap.ccsdk.features.sdnr.wt.common.configuration.filechange.IConfigChangedListener;
 import io.lighty.modules.pnf.registration.mountpointregistrar.config.FaultConfig;
 import io.lighty.modules.pnf.registration.mountpointregistrar.config.GeneralConfig;
 import io.lighty.modules.pnf.registration.mountpointregistrar.config.MessageConfig;
@@ -25,15 +25,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PnfModule extends AbstractLightyModule {
-    private static final Logger LOG = LoggerFactory.getLogger(PnfModule.class);
-    public PnfModule() {
-        LOG.info("Printing from pnf module");
+    private static final Logger LOG = LoggerFactory.getLogger(MountpointRegistrarImpl.class);
+    private static final String APPLICATION_NAME = "mountpoint-registrar";
+    private static final String CONFIGURATIONFILE = "etc/mountpoint-registrar.properties";
+
+    private Thread sKafkaVESMsgConsumerMain = null;
+
+    private GeneralConfig generalConfig;
+    private boolean strimziEnabled = false;
+    private Map<String, MessageConfig> configMap = new HashMap<>();
+    private StrimziKafkaVESMsgConsumerMain sKafkaConsumerMain = null;
+    private StrimziKafkaConfig strimziKafkaConfig;
+
+    // Blueprint 1
+    public MountpointRegistrarImpl() {
+        LOG.info("Creating provider class for {}", APPLICATION_NAME);
+        return true;
     }
 
-    @Override
-    @SuppressWarnings({"checkstyle:illegalCatch"})
-    protected boolean initProcedure() {
-        LOG.info("initProcedure PNF Registration module");
+    public void init() {
         LOG.info("Init call for {}", APPLICATION_NAME);
 
         ConfigurationFileRepresentation configFileRepresentation =
@@ -61,17 +71,57 @@ public class PnfModule extends AbstractLightyModule {
         } else {
             LOG.info("Strimzi Kafka seems to be disabled, not starting any consumer(s)");
         }
-        return true;
     }
 
-    @SuppressWarnings("checkstyle:illegalCatch")
+    /**
+     * Reflect status for Unit Tests
+     *
+     * @return Text with status
+     */
+    public String isInitializationOk() {
+        return "No implemented";
+    }
+
     @Override
-    protected boolean stopProcedure() {
-        LOG.info("Stopping PNF Registration module");
-        // cleanup logic here
-        return true;
+    public void onConfigChanged() {
+        if (generalConfig == null) { // Included as NullPointerException observed once in docker logs
+            LOG.warn("onConfigChange cannot be handled. Unexpected Null for generalConfig");
+            return;
+        }
+        if (strimziKafkaConfig == null) { // Included as NullPointerException observed once in docker logs
+            LOG.warn("onConfigChange cannot be handled. Unexpected Null for strimziKafkaConfig");
+            return;
+        }
+        LOG.info("Service configuration state changed. Enabled: {}", strimziKafkaConfig.getEnabled());
+        boolean strimziEnabledNewVal = strimziKafkaConfig.getEnabled();
+        if (!strimziEnabled && strimziEnabledNewVal) { // Strimzi kafka disabled earlier (or during bundle startup) but enabled later, start Consumer(s)
+            LOG.info("Strimzi Kafka is enabled, starting consumer(s)");
+            sKafkaConsumerMain = new StrimziKafkaVESMsgConsumerMain(configMap, generalConfig, strimziKafkaConfig);
+            sKafkaVESMsgConsumerMain = new Thread(sKafkaConsumerMain);
+            sKafkaVESMsgConsumerMain.start();
+        } else if (strimziEnabled && !strimziEnabledNewVal) { // Strimzi kafka enabled earlier (or during bundle startup) but disabled later, stop consumer(s)
+            LOG.info("Strimzi Kafka is disabled, stopping consumer(s)");
+            List<StrimziKafkaVESMsgConsumer> consumers = sKafkaConsumerMain.getConsumers();
+            for (StrimziKafkaVESMsgConsumer consumer : consumers) {
+                // stop all consumers
+                consumer.stopConsumer();
+            }
+        }
+        strimziEnabled = strimziEnabledNewVal;
     }
 
+    @Override
+    public void close() throws Exception {
+        LOG.info("{} closing ...", this.getClass().getName());
+        LOG.info("{} closing done", APPLICATION_NAME);
+    }
+
+    /**
+     * Used to close all Services, that should support AutoCloseable Pattern
+     *
+     * @param toClose
+     * @throws Exception
+     */
     @SuppressWarnings("unused")
     private void close(AutoCloseable... toCloseList) throws Exception {
         for (AutoCloseable element : toCloseList) {

@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.jdt.annotation.NonNull;
-// import io.lighty.modules.pnf.registration.common.database.requests.BaseRequest;
+// import org.onap.ccsdk.features.sdnr.wt.common.database.requests.BaseRequest;
 import io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient;
 
 public class PNFMountPointClient extends MessageClient {

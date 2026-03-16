@@ -23,10 +23,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient;
+import io.lighty.modules.pnf.registration.MessageClient;
 
-import static io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient.MessageType.*;
-import static io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient.SendMethod.*;
+import static io.lighty.modules.pnf.registration.MessageClient.MessageType.*;
+import static io.lighty.modules.pnf.registration.MessageClient.SendMethod.*;
 
 
 public class FaultNotificationClient extends MessageClient {

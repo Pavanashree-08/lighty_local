@@ -24,8 +24,9 @@ import io.lighty.modules.pnf.registration.mountpointregistrar.config.StrimziKafk
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PnfModule extends AbstractLightyModule {
-    private static final Logger LOG = LoggerFactory.getLogger(MountpointRegistrarImpl.class);
+public class PnfModule extends AbstractLightyModule 
+    implements IConfigChangedListener, AutoCloseable {
+    private static final Logger LOG = LoggerFactory.getLogger(PnfModule.class);
     private static final String APPLICATION_NAME = "mountpoint-registrar";
     private static final String CONFIGURATIONFILE = "etc/mountpoint-registrar.properties";
 
@@ -38,12 +39,13 @@ public class PnfModule extends AbstractLightyModule {
     private StrimziKafkaConfig strimziKafkaConfig;
 
     // Blueprint 1
-    public MountpointRegistrarImpl() {
+    public void PnfModule() {
         LOG.info("Creating provider class for {}", APPLICATION_NAME);
-        return true;
     }
 
-    public void init() {
+    @Override
+    @SuppressWarnings({"checkstyle:illegalCatch"})
+    protected boolean initProcedure() {
         LOG.info("Init call for {}", APPLICATION_NAME);
 
         ConfigurationFileRepresentation configFileRepresentation =
@@ -71,6 +73,7 @@ public class PnfModule extends AbstractLightyModule {
         } else {
             LOG.info("Strimzi Kafka seems to be disabled, not starting any consumer(s)");
         }
+        return true;
     }
 
     /**
@@ -129,5 +132,12 @@ public class PnfModule extends AbstractLightyModule {
                 element.close();
             }
         }
+    }
+
+    @Override
+    @SuppressWarnings({"checkstyle:illegalCatch"})
+    protected boolean stopProcedure() {
+        boolean closeSuccess = true;
+        return closeSuccess;
     }
 }

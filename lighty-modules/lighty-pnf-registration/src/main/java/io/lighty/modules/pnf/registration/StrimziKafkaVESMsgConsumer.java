@@ -2,7 +2,7 @@
  * ============LICENSE_START========================================================================
  * ONAP : ccsdk feature sdnr wt mountpoint-registrar
  * =================================================================================================
- * Copyright (C) 2021 Samsung Electronics Intellectual Property. All rights reserved.
+ * Copyright (C) 2019 highstreet technologies GmbH Intellectual Property. All rights reserved.
  * =================================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -16,23 +16,20 @@
  * ============LICENSE_END==========================================================================
  */
 
-package io.lighty.modules.pnf.registration.mountpointregistrar.impl;
+package io.lighty.modules.pnf.registration;
 
-public class InvalidMessageException extends Exception {
+import java.util.Properties;
 
-    private final static String defaultMessage = "Message is invalid";
-    private final String exceptionInfo;
+public abstract interface StrimziKafkaVESMsgConsumer extends Runnable {
 
-    public InvalidMessageException() {
-        this.exceptionInfo = defaultMessage;
-    }
+    public abstract void init(Properties strimziKafkaProperties, Properties properties);
 
-    public InvalidMessageException(String exceptionInfo) {
-        this.exceptionInfo = exceptionInfo;
-    }
+    public abstract void processMsg(String msg) throws Exception;//Implement something like InvalidMessageException;
 
-    @Override
-    public String getMessage() {
-        return exceptionInfo;
-    }
+    public abstract boolean isReady();
+
+    public abstract boolean isRunning();
+
+    public abstract void stopConsumer();
+
 }

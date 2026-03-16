@@ -19,14 +19,14 @@
 
 package io.lighty.modules.pnf.registration.mountpointregistrar.vesdomain.pnfreg;
 
-import static io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient.MessageType.xml;
-import static io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient.SendMethod.PUT;
+import static io.lighty.modules.pnf.registration.MessageClient.MessageType.xml;
+import static io.lighty.modules.pnf.registration.MessageClient.SendMethod.PUT;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.jdt.annotation.NonNull;
 // import org.onap.ccsdk.features.sdnr.wt.common.database.requests.BaseRequest;
-import io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient;
+import io.lighty.modules.pnf.registration.MessageClient;
 
 public class PNFMountPointClient extends MessageClient {
 
@@ -84,7 +84,7 @@ public class PNFMountPointClient extends MessageClient {
 
     @Override
     public String prepareMessageFromPayloadMap(Map<String, String> notificationPayloadMap) {
-        updateNotificationUriWithPnfName(notificationPayloadMap.get(DEVICE_NAME));
+        // updateNotificationUriWithPnfName(notificationPayloadMap.get(DEVICE_NAME));
         String message = "";
         if(!notificationPayloadMap.containsKey(PROTOCOL)) {
             return message;
@@ -97,9 +97,9 @@ public class PNFMountPointClient extends MessageClient {
         return message;
     }
 
-    private void updateNotificationUriWithPnfName(String pnfName) {
-        setNotificationUri(MOUNTPOINT_URI + BaseRequest.urlEncodeValue(pnfName));
-    }
+    // private void updateNotificationUriWithPnfName(String pnfName) {
+    //     setNotificationUri(MOUNTPOINT_URI + BaseRequest.urlEncodeValue(pnfName));
+    // }
 
     @Override
     public boolean sendNotification(String message) {

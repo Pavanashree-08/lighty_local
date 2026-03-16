@@ -18,14 +18,14 @@
 
 package io.lighty.modules.pnf.registration.mountpointregistrar.vesdomain.cm;
 
-import static io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient.SendMethod.POST;
+import static io.lighty.modules.pnf.registration.MessageClient.SendMethod.POST;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient;
-import io.lighty.modules.pnf.registration.mountpointregistrar.impl.MessageClient.MessageType;
+import io.lighty.modules.pnf.registration.MessageClient;
+import io.lighty.modules.pnf.registration.MessageClient.MessageType;
 
 public class CMNotificationClient extends MessageClient {
 

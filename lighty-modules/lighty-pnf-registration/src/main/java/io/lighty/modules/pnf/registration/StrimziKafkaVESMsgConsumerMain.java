@@ -17,7 +17,7 @@
  * ============LICENSE_END==========================================================================
  */
 
-package io.lighty.modules.pnf.registration.mountpointregistrar.impl;
+package io.lighty.modules.pnf.registration;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -42,13 +42,13 @@ public class StrimziKafkaVESMsgConsumerMain implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(StrimziKafkaVESMsgConsumerMain.class);
     Properties strimziKafkaProperties = new Properties();
     private static final String _PNFREG_CLASS =
-            "io.lighty.modules.pnf.registration.mountpointregistrar.impl.DMaaPPNFRegVESMsgConsumer";
+            "io.lighty.modules.pnf.registration.DMaaPPNFRegVESMsgConsumer";
     private static final String _FAULT_CLASS =
-            "io.lighty.modules.pnf.registration.mountpointregistrar.impl.DMaaPFaultVESMsgConsumer";
+            "io.lighty.modules.pnf.registration.DMaaPFaultVESMsgConsumer";
     private static final String _CM_CLASS =
-            "io.lighty.modules.pnf.registration.mountpointregistrar.impl.DMaaPCMVESMsgConsumer";
+            "io.lighty.modules.pnf.registration.DMaaPCMVESMsgConsumer";
     private static final String _STNDDEFINED_FAULT_CLASS =
-            "io.lighty.modules.pnf.registration.mountpointregistrar.impl.DMaaPStndDefinedFaultVESMsgConsumer";
+            "io.lighty.modules.pnf.registration.DMaaPStndDefinedFaultVESMsgConsumer";
     private static final String _PNFREG_DOMAIN = "pnfRegistration";
     private static final String _FAULT_DOMAIN = "fault";
     private static final String _CM_DOMAIN = "provisioning";

@@ -2,7 +2,7 @@
  * ============LICENSE_START========================================================================
  * ONAP : ccsdk feature sdnr wt mountpoint-registrar
  * =================================================================================================
- * Copyright (C) 2019 highstreet technologies GmbH Intellectual Property. All rights reserved.
+ * Copyright (C) 2021 Samsung Electronics Intellectual Property. All rights reserved.
  * =================================================================================================
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -16,20 +16,10 @@
  * ============LICENSE_END==========================================================================
  */
 
-package io.lighty.modules.pnf.registration.mountpointregistrar.impl;
+package io.lighty.modules.pnf.registration;
 
-import java.util.Properties;
+public interface StrimziKafkaVESMsgValidator {
 
-public abstract interface StrimziKafkaVESMsgConsumer extends Runnable {
-
-    public abstract void init(Properties strimziKafkaProperties, Properties properties);
-
-    public abstract void processMsg(String msg) throws Exception;//Implement something like InvalidMessageException;
-
-    public abstract boolean isReady();
-
-    public abstract boolean isRunning();
-
-    public abstract void stopConsumer();
+    boolean isMessageValid(String message);
 
 }

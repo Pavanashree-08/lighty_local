@@ -17,7 +17,7 @@
  * ============LICENSE_END==========================================================================
  */
 
-package io.lighty.modules.pnf.registration.mountpointregistrar.impl;
+package io.lighty.modules.pnf.registration;
 
 import java.io.IOException;
 import java.util.Base64;

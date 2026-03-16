@@ -16,10 +16,23 @@
  * ============LICENSE_END==========================================================================
  */
 
-package io.lighty.modules.pnf.registration.mountpointregistrar.impl;
+package io.lighty.modules.pnf.registration;
 
-public interface StrimziKafkaVESMsgValidator {
+public class InvalidMessageException extends Exception {
 
-    boolean isMessageValid(String message);
+    private final static String defaultMessage = "Message is invalid";
+    private final String exceptionInfo;
 
+    public InvalidMessageException() {
+        this.exceptionInfo = defaultMessage;
+    }
+
+    public InvalidMessageException(String exceptionInfo) {
+        this.exceptionInfo = exceptionInfo;
+    }
+
+    @Override
+    public String getMessage() {
+        return exceptionInfo;
+    }
 }

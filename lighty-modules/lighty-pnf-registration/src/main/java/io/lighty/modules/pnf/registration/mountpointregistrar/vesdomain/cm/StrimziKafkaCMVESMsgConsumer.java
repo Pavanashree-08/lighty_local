@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import io.lighty.modules.pnf.registration.mountpointregistrar.config.GeneralConfig;
-import io.lighty.modules.pnf.registration.mountpointregistrar.impl.StrimziKafkaVESMsgConsumerImpl;
-import io.lighty.modules.pnf.registration.mountpointregistrar.impl.InvalidMessageException;
+import io.lighty.modules.pnf.registration.StrimziKafkaVESMsgConsumerImpl;
+import io.lighty.modules.pnf.registration.InvalidMessageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

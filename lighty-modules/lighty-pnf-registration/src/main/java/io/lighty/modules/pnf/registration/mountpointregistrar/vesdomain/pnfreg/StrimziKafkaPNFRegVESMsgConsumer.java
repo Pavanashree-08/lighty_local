@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.Map;
 import org.eclipse.jdt.annotation.Nullable;
 import io.lighty.modules.pnf.registration.mountpointregistrar.config.GeneralConfig;
-import io.lighty.modules.pnf.registration.mountpointregistrar.impl.StrimziKafkaVESMsgConsumerImpl;
+import io.lighty.modules.pnf.registration.StrimziKafkaVESMsgConsumerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

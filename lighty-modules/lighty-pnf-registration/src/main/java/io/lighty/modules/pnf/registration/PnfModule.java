@@ -28,7 +28,7 @@ public class PnfModule extends AbstractLightyModule
     implements IConfigChangedListener, AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(PnfModule.class);
     private static final String APPLICATION_NAME = "mountpoint-registrar";
-    private static final String CONFIGURATIONFILE = "etc/mountpoint-registrar.properties";
+    private static final String CONFIGURATIONFILE = "resources/mountpoint-registrar.properties";
 
     private Thread sKafkaVESMsgConsumerMain = null;
 

@@ -82,11 +82,6 @@ public class Main {
             throw new ModuleStartupException("Controller startup failed!");
         }
 
-        // 3️⃣ Start PNF module
-        // pnfModule = new PnfModule(controller.getServices());
-
-        // boolean moduleStarted = pnfModule.start()
-        //         .get(modulesConfig.getModuleTimeoutSeconds(), TimeUnit.SECONDS);
         } catch (Exception e) {
             LOG.error("pnf module error ", e);
             shutdown();
@@ -211,6 +206,20 @@ public class Main {
         if (!netconfSBPStartOk) {
             throw new ModuleStartupException("NetconfSB plugin startup failed!");
         }
+
+        //5. start PNF module
+        LOG.info("Starting PNF Registration module...");
+
+        this.pnfModule = new PnfModule();
+
+        final boolean pnfStartOk = this.pnfModule.start()
+                .get(modulesConfig.getModuleTimeoutSeconds(), TimeUnit.SECONDS);
+
+        if (!pnfStartOk) {
+            throw new ModuleStartupException("PNF module startup failed!");
+        }
+
+        LOG.info("PNF Registration module started successfully.");
     }
 
     private void closeLightyModule(final LightyModule module) {

@@ -16,6 +16,7 @@ import org.opendaylight.mdsal.dom.api.DOMMountPointService;
 import org.opendaylight.mdsal.dom.api.DOMNotificationService;
 import org.opendaylight.mdsal.dom.api.DOMRpcService;
 import org.opendaylight.mdsal.dom.api.DOMSchemaService;
+import java.net.UnknownHostException;
 
 public class RestConfConfiguration {
 
@@ -34,11 +35,18 @@ public class RestConfConfiguration {
     @JsonIgnore
     private DOMSchemaService domSchemaService;
 
-    private InetAddress inetAddress = InetAddress.getLoopbackAddress();
+    // private InetAddress inetAddress = InetAddress.getLoopbackAddress();
+    private InetAddress inetAddress = null;
     private int httpPort = 8888;
-    private String restconfServletContextPath = "restconf";
+    // private String restconfServletContextPath = "restconf";
+    private String restconfServletContextPath = "rests";
 
     public RestConfConfiguration() {
+        try {
+            inetAddress = InetAddress.getByName("pavanashree-640-g3");
+        } catch(UnknownHostException e)  {
+            System.out.println("could not resolve host"+e);
+        }
     }
 
     public RestConfConfiguration(final RestConfConfiguration restConfConfiguration) {

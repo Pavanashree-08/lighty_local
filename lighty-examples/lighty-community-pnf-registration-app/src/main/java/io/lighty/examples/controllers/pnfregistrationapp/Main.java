@@ -210,7 +210,7 @@ public class Main {
         //5. start PNF module
         LOG.info("Starting PNF Registration module...");
 
-        this.pnfModule = new PnfModule();
+        this.pnfModule = new PnfModule(this.lightyController.getServices());
 
         final boolean pnfStartOk = this.pnfModule.start()
                 .get(modulesConfig.getModuleTimeoutSeconds(), TimeUnit.SECONDS);

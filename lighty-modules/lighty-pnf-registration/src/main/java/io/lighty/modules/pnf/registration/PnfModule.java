@@ -11,9 +11,15 @@ package io.lighty.modules.pnf.registration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+
 import io.lighty.core.controller.api.AbstractLightyModule;
+import io.lighty.core.controller.api.LightyServices;
+
 import org.onap.ccsdk.features.sdnr.wt.common.configuration.ConfigurationFileRepresentation;
 import org.onap.ccsdk.features.sdnr.wt.common.configuration.filechange.IConfigChangedListener;
+import org.opendaylight.aaa.encrypt.AAAEncryptionService;
+
 import io.lighty.modules.pnf.registration.mountpointregistrar.config.FaultConfig;
 import io.lighty.modules.pnf.registration.mountpointregistrar.config.GeneralConfig;
 import io.lighty.modules.pnf.registration.mountpointregistrar.config.MessageConfig;
@@ -37,10 +43,12 @@ public class PnfModule extends AbstractLightyModule
     private Map<String, MessageConfig> configMap = new HashMap<>();
     private StrimziKafkaVESMsgConsumerMain sKafkaConsumerMain = null;
     private StrimziKafkaConfig strimziKafkaConfig;
+    private final LightyServices lightyServices;
 
     // Blueprint 1
-    public void PnfModule() {
-        LOG.info("Creating provider class for {}", APPLICATION_NAME);
+	public PnfModule(final LightyServices lightyServices/* , final ExecutorService executorService */) {
+    	  LOG.info("Creating provider class for {}", APPLICATION_NAME);
+          this.lightyServices = lightyServices;
     }
 
     @Override

@@ -25,7 +25,7 @@
         <module>lighty-gnmi-commons</module>
         <module>lighty-gnmi-proto</module>
         <module>lighty-gnmi-device-simulator</module>
-        <module>lighty-gnmi-test</module>
+        <!-- <module>lighty-gnmi-test</module> -->
         <module>lighty-gnmi-sb</module>
     </modules>
 

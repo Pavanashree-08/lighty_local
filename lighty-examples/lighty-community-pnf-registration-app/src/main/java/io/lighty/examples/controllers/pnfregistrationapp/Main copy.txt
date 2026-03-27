@@ -57,10 +57,8 @@ public class Main {
     private ModulesConfig modulesConfig = ModulesConfig.getDefaultModulesConfig();
 
     public static void main(final String[] args) {
-        // Main app = new Main();
-        PnfModule pnf = new PnfModule();
-        pnf.initProcedure();
-        // app.start(args, true);
+        Main app = new Main();
+        app.start(args, true);
     }
 
     public void start() {
@@ -212,16 +210,16 @@ public class Main {
         //5. start PNF module
         LOG.info("Starting PNF Registration module...");
 
-        // this.pnfModule = new PnfModule(this.lightyController.getServices());
+        this.pnfModule = new PnfModule(this.lightyController.getServices());
 
-        // final boolean pnfStartOk = this.pnfModule.start()
-        //         .get(modulesConfig.getModuleTimeoutSeconds(), TimeUnit.SECONDS);
+        final boolean pnfStartOk = this.pnfModule.start()
+                .get(modulesConfig.getModuleTimeoutSeconds(), TimeUnit.SECONDS);
 
-        // if (!pnfStartOk) {
-        //     throw new ModuleStartupException("PNF module startup failed!");
-        // }
+        if (!pnfStartOk) {
+            throw new ModuleStartupException("PNF module startup failed!");
+        }
 
-        // LOG.info("PNF Registration module started successfully.");
+        LOG.info("PNF Registration module started successfully.");
     }
 
     private void closeLightyModule(final LightyModule module) {

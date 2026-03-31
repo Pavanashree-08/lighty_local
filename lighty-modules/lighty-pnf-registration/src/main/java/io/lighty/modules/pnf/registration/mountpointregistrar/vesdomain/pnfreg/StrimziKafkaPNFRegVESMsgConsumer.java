@@ -131,6 +131,8 @@ public class StrimziKafkaPNFRegVESMsgConsumer extends StrimziKafkaVESMsgConsumer
         } catch (IOException e) {
             LOG.info("Cannot parse json object, ignoring the received PNF Registration VES Message. Reason: {}",
                     e.getMessage());
+        } catch (Exception e) {
+        	LOG.info("Failed to parse message", e);
         }
     }
 

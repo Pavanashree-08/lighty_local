@@ -16,12 +16,12 @@
         <relativePath>../../lighty-core/lighty-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.onap.ccsdk.features.sdnr.wt</groupId>
-    <artifactId>sdnr-wt-mountpoint-registrar-provider</artifactId>
-    <version>2.2.20</version>
+    <groupId>org.iosmcn.features.sdnr.wt</groupId>
+    <artifactId>sdnr-wt-mountpoint-registrar</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ccsdk-features :: ${project.artifactId}</name>
+    <name>iosmcn :: ${project.artifactId}</name>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -52,12 +52,12 @@
             <version>4.2.0</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.onap.ccsdk.features.sdnr.wt</groupId>
             <artifactId>sdnr-wt-common</artifactId>
             <version>2.2.2</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.onap.ccsdk.features.sdnr.wt</groupId>
             <artifactId>sdnr-wt-data-provider-model</artifactId>
             <version>2.2.2</version>
         </dependency>

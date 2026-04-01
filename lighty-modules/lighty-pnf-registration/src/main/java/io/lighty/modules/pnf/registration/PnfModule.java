@@ -43,13 +43,13 @@ public class PnfModule extends AbstractLightyModule
     private Map<String, MessageConfig> configMap = new HashMap<>();
     private StrimziKafkaVESMsgConsumerMain sKafkaConsumerMain = null;
     private StrimziKafkaConfig strimziKafkaConfig;
-    // private final LightyServices lightyServices;
+    private final LightyServices lightyServices;
 
     // Blueprint 1
-	// public PnfModule(final LightyServices lightyServices/* , final ExecutorService executorService */) {
-    // 	  LOG.info("Creating provider class for {}", APPLICATION_NAME);
-    //       this.lightyServices = lightyServices;
-    // }
+	public PnfModule(final LightyServices lightyServices/* , final ExecutorService executorService */) {
+    	  LOG.info("Creating provider class for {}", APPLICATION_NAME);
+          this.lightyServices = lightyServices;
+    }
 
     @Override
     @SuppressWarnings({"checkstyle:illegalCatch"})

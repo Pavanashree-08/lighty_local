@@ -126,21 +126,21 @@ public class PNFMountPointClient extends MessageClient {
         return message;
     }
 
-     private void updateNotificationUriWithPnfName(String pnfName) {
-         setNotificationUri(MOUNTPOINT_URI + urlEncodeValue(pnfName));
-     }
-     
-     public static String urlEncodeValue(String value) {
-         if (value == null) {
-             return null;
-         }
-         try {
-             return URLEncoder.encode(value, StandardCharsets.UTF_8.toString()).replace("+", "%20");
-         } catch (UnsupportedEncodingException ex) {
-             LOG.warn("encoding problem: {}", ex.getMessage());
-         }
-         return value;
-     }
+    private void updateNotificationUriWithPnfName(String pnfName) {
+        setNotificationUri(MOUNTPOINT_URI + urlEncodeValue(pnfName));
+    }
+    
+    public static String urlEncodeValue(String value) {
+        if (value == null) {
+            return null;
+        }
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString()).replace("+", "%20");
+        } catch (UnsupportedEncodingException ex) {
+            LOG.warn("encoding problem: {}", ex.getMessage());
+        }
+        return value;
+    }
  
 
     @Override

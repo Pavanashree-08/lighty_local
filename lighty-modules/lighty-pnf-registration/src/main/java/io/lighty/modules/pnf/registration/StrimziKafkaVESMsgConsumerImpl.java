@@ -130,11 +130,13 @@ public abstract class StrimziKafkaVESMsgConsumerImpl
     }
 
     private boolean isTopicExists(String topicName) {
-        LOG.trace("Checking for existence of topic - {}", topicName);
+        LOG.info("Checking for existence of topic - {}", topicName);
         try {
             for (String kafkaTopic : kafkaAdminClient.listTopics().names().get()) {
-                if (kafkaTopic.equals(topicName))
+                if (kafkaTopic.equals(topicName)) {
+                    LOG.info("Topic {} exists", topicName);
                     return true;
+                }
             }
         } catch (InterruptedException | ExecutionException e) {
             LOG.error("Exception in isTopicExists method - ", e);

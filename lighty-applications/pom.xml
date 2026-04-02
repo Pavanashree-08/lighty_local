@@ -11,7 +11,7 @@
 
     <groupId>io.lighty.applications</groupId>
     <artifactId>lighty-applications-aggregator</artifactId>
-    <version>24.0.0-SNAPSHOT</version>
+    <version>23.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -23,5 +23,6 @@
         <module>lighty-rnc-app-aggregator</module>
         <module>lighty-rcgnmi-app-aggregator</module>
         <module>lighty-app-modules-config</module>
+        <module>iosmcn-pnf-registration-app</module>
     </modules>
 </project>

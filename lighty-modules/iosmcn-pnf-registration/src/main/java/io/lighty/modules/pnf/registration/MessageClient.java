@@ -99,6 +99,7 @@ public abstract class MessageClient extends BaseHTTPClient {
         headerMap.put("Accept", "application/".concat(messageType.toString()));
         BaseHTTPResponse response;
         try {
+        	LOG.info("NotificationUri = {}", notificationUri);
             response = sendRequest(notificationUri, method.toString(), message, headerMap);
         } catch (IOException e) {
             LOG.warn("Problem sending message: {}", e.getMessage());

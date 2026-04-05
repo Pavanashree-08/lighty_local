@@ -16,8 +16,8 @@
         <relativePath>../../lighty-core/lighty-parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.iosmcn.features.sdnr.wt</groupId>
-    <artifactId>sdnr-wt-mountpoint-registrar</artifactId>
+    <groupId>org.iosmcn.lighty.applications</groupId>
+    <artifactId>mountpoint-registrar</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 

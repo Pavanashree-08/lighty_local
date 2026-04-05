@@ -30,6 +30,6 @@
         <module>lighty-gnmi</module>
         <module>lighty-bgp</module>
         <module>lighty-restconf-netty-nb-community</module>
-        <module>lighty-pnf-registration</module>
+        <module>iosmcn-pnf-registration</module>
     </modules>
 </project>

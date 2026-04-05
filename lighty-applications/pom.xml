@@ -23,6 +23,6 @@
         <module>lighty-rnc-app-aggregator</module>
         <module>lighty-rcgnmi-app-aggregator</module>
         <module>lighty-app-modules-config</module>
-        <module>iosmcn-pnf-registration-app</module>
+        <module>iosmcn-pnf-registration-aggregator</module>
     </modules>
 </project>

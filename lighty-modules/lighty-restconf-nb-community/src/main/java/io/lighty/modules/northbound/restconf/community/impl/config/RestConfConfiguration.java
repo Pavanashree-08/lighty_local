@@ -9,6 +9,7 @@ package io.lighty.modules.northbound.restconf.community.impl.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.Objects;
 import org.opendaylight.mdsal.dom.api.DOMActionService;
 import org.opendaylight.mdsal.dom.api.DOMDataBroker;
@@ -36,17 +37,19 @@ public class RestConfConfiguration {
     private DOMSchemaService domSchemaService;
 
     // private InetAddress inetAddress = InetAddress.getLoopbackAddress();
-    private InetAddress inetAddress = null;
+    //private InetAddress inetAddress = null;
+    private InetAddress inetAddress = new InetSocketAddress(0).getAddress();
+
     private int httpPort = 8888;
     // private String restconfServletContextPath = "restconf";
     private String restconfServletContextPath = "rests";
 
     public RestConfConfiguration() {
-        try {
-            inetAddress = InetAddress.getByName("pavanashree-640-g3");
-        } catch(UnknownHostException e)  {
-            System.out.println("could not resolve host"+e);
-        }
+//        try {
+//            inetAddress = InetAddress.getByName("ravidev2");
+//        } catch(UnknownHostException e)  {
+//            System.out.println("could not resolve host"+e);
+//        }
     }
 
     public RestConfConfiguration(final RestConfConfiguration restConfConfiguration) {

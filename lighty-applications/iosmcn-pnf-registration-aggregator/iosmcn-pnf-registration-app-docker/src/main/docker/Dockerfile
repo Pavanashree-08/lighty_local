@@ -18,4 +18,4 @@ COPY LICENSE ${iosmcn.app.name} entrypoint.sh app/
 
 EXPOSE 8888
 WORKDIR /opt/iosmcn
-ENTRYPOINT ["./entrypoint.sh", "${iosmcn.app.jar}"]
+ENTRYPOINT ["/opt/iosmcn/app/entrypoint.sh", "/opt/iosmcn/app/${iosmcn.app.jar}"]

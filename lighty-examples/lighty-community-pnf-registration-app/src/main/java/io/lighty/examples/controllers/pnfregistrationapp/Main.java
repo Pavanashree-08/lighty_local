@@ -24,6 +24,8 @@ import io.lighty.modules.northbound.restconf.community.impl.CommunityRestConf;
 import io.lighty.modules.northbound.restconf.community.impl.CommunityRestConfBuilder;
 import io.lighty.modules.northbound.restconf.community.impl.config.RestConfConfiguration;
 import io.lighty.modules.northbound.restconf.community.impl.util.RestConfConfigUtils;
+import io.lighty.modules.southbound.netconf.impl.NetconfCallhomePlugin;
+import io.lighty.modules.southbound.netconf.impl.NetconfCallhomePluginBuilder;
 import io.lighty.modules.southbound.netconf.impl.NetconfTopologyPluginBuilder;
 import io.lighty.modules.southbound.netconf.impl.config.NetconfConfiguration;
 import io.lighty.modules.southbound.netconf.impl.util.NetconfConfigUtils;
@@ -55,7 +57,8 @@ public class Main {
     private LightyModule netconfSBPlugin;
     private LightyModule pnfModule;
     private ModulesConfig modulesConfig = ModulesConfig.getDefaultModulesConfig();
-
+    private NetconfCallhomePlugin callhomePlugin;
+    
     public static void main(final String[] args) {
         Main app = new Main();
         app.start(args, true);
@@ -120,8 +123,10 @@ public class Main {
                 modulesConfig = ModulesConfig.getModulesConfig(Files.newInputStream(configPath));
             } else {
                 LOG.info("using default configuration ...");
-                Set<YangModuleInfo> modelPaths = Stream.concat(RestConfConfigUtils.YANG_MODELS.stream(),
-                        NetconfConfigUtils.NETCONF_TOPOLOGY_MODELS.stream()).collect(Collectors.toSet());
+//                Set<YangModuleInfo> modelPaths = Stream.concat(RestConfConfigUtils.YANG_MODELS.stream(),
+//                        NetconfConfigUtils.NETCONF_TOPOLOGY_MODELS.stream()).collect(Collectors.toSet());
+                Set<YangModuleInfo> modelPaths = Stream.of(RestConfConfigUtils.YANG_MODELS.stream(),
+                        NetconfConfigUtils.NETCONF_TOPOLOGY_MODELS.stream(), NetconfConfigUtils.NETCONF_CALLHOME_MODELS.stream()).flatMap(s -> s).collect(Collectors.toSet());
                 ArrayNode arrayNode = YangModuleUtils
                         .generateJSONModelSetConfiguration(
                                 Stream.concat(ControllerConfigUtils.YANG_MODELS.stream(), modelPaths.stream())
@@ -207,6 +212,16 @@ public class Main {
             throw new ModuleStartupException("NetconfSB plugin startup failed!");
         }
 
+        //4.1 Start CallHome
+        LOG.debug("Loading default lighty.io NETCONF module configuration...");
+        final NetconfConfiguration netconfConfig = NetconfConfigUtils.createDefaultNetconfConfiguration();
+        LOG.debug("Default lighty.io NETCONF module configuration loaded!");
+        this.callhomePlugin = new NetconfCallhomePluginBuilder(lightyController.getServices(),
+        		netconfConfig,
+                restconfConfiguration.getInetAddress().getHostAddress(),
+                4334).build();
+        this.callhomePlugin.start();
+        
         //5. start PNF module
         LOG.info("Starting PNF Registration module...");
 
